@@ -1,4 +1,4 @@
-package com.example.tp_integrador.entity;
+package com.example.tp_integrador.entities;
 
 
 import jakarta.persistence.GeneratedValue;

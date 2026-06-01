@@ -1,6 +1,6 @@
 package com.example.tp_integrador.dtos.usuario;
 
-import com.example.tp_integrador.entity.Usuario;
+import com.example.tp_integrador.entities.Usuario;
 import com.example.tp_integrador.enums.Rol;
 
 public record UsuarioEdit(

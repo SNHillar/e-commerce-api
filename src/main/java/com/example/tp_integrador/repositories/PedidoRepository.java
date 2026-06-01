@@ -1,7 +1,6 @@
-package com.example.tp_integrador.repository;
+package com.example.tp_integrador.repositories;
 
-import com.example.tp_integrador.entity.Pedido;
-import com.example.tp_integrador.entity.Usuario;
+import com.example.tp_integrador.entities.Pedido;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

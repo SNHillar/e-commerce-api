@@ -1,16 +1,16 @@
-package com.example.tp_integrador.service;
+package com.example.tp_integrador.services;
 
 import com.example.tp_integrador.dtos.detallepedido.DetallePedidoCreate;
 import com.example.tp_integrador.dtos.pedido.PedidoDto;
 import com.example.tp_integrador.dtos.pedido.PedidoEdit;
-import com.example.tp_integrador.entity.Pedido;
-import com.example.tp_integrador.entity.Producto;
-import com.example.tp_integrador.entity.Usuario;
+import com.example.tp_integrador.entities.Pedido;
+import com.example.tp_integrador.entities.Producto;
+import com.example.tp_integrador.entities.Usuario;
 import com.example.tp_integrador.enums.Estado;
 import com.example.tp_integrador.enums.FormaPago;
-import com.example.tp_integrador.repository.PedidoRepository;
-import com.example.tp_integrador.repository.ProductoRepository;
-import com.example.tp_integrador.repository.UsuarioRepository;
+import com.example.tp_integrador.repositories.PedidoRepository;
+import com.example.tp_integrador.repositories.ProductoRepository;
+import com.example.tp_integrador.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

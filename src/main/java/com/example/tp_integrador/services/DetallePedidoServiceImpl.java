@@ -1,4 +1,4 @@
-package com.example.tp_integrador.service;
+package com.example.tp_integrador.services;
 
 import org.springframework.stereotype.Service;
 

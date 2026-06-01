@@ -1,6 +1,6 @@
 package com.example.tp_integrador.dtos.categoria;
 
-import com.example.tp_integrador.entity.Categoria;
+import com.example.tp_integrador.entities.Categoria;
 
 public record CategoriaEdit(
         String nombre,

@@ -1,9 +1,6 @@
 package com.example.tp_integrador.dtos.usuario;
 
-import com.example.tp_integrador.dtos.pedido.PedidoDto;
-import com.example.tp_integrador.entity.Usuario;
-
-import java.util.stream.Collectors;
+import com.example.tp_integrador.entities.Usuario;
 
 public record UsuarioDto(
         Long id,

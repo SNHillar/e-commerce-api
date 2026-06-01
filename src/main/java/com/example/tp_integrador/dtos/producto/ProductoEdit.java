@@ -1,7 +1,7 @@
 package com.example.tp_integrador.dtos.producto;
 
-import com.example.tp_integrador.entity.Categoria;
-import com.example.tp_integrador.entity.Producto;
+import com.example.tp_integrador.entities.Categoria;
+import com.example.tp_integrador.entities.Producto;
 
 public record ProductoEdit(
         String nombre,

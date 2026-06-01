@@ -1,6 +1,6 @@
 package com.example.tp_integrador.dtos.pedido;
 
-import com.example.tp_integrador.entity.Pedido;
+import com.example.tp_integrador.entities.Pedido;
 import com.example.tp_integrador.enums.Estado;
 import com.example.tp_integrador.enums.FormaPago;
 

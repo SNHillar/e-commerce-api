@@ -1,10 +1,10 @@
-package com.example.tp_integrador.service;
+package com.example.tp_integrador.services;
 
 import com.example.tp_integrador.dtos.usuario.UsuarioCreate;
 import com.example.tp_integrador.dtos.usuario.UsuarioDto;
 import com.example.tp_integrador.dtos.usuario.UsuarioEdit;
-import com.example.tp_integrador.entity.Usuario;
-import com.example.tp_integrador.repository.UsuarioRepository;
+import com.example.tp_integrador.entities.Usuario;
+import com.example.tp_integrador.repositories.UsuarioRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +28,6 @@ public class UsuarioServiceImpl implements UsuarioService{
     @Override
     public UsuarioDto findById(Long id) {
         Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new NullPointerException("No se encontro el usuario con id: " + id));
-        usuarioRepository.save(usuario);
         return UsuarioDto.toDto(usuario);
     }
 

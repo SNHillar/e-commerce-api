@@ -1,10 +1,7 @@
 package com.example.tp_integrador.dtos.detallepedido;
 
-import com.example.tp_integrador.dtos.pedido.PedidoDto;
 import com.example.tp_integrador.dtos.producto.ProductoDto;
-import com.example.tp_integrador.entity.DetallePedido;
-import com.example.tp_integrador.entity.Pedido;
-import com.example.tp_integrador.entity.Producto;
+import com.example.tp_integrador.entities.DetallePedido;
 
 public record DetallePedidoDto(
         Long id,

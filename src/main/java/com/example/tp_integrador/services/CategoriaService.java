@@ -1,4 +1,4 @@
-package com.example.tp_integrador.service;
+package com.example.tp_integrador.services;
 
 import com.example.tp_integrador.dtos.categoria.CategoriaCreate;
 import com.example.tp_integrador.dtos.categoria.CategoriaDto;

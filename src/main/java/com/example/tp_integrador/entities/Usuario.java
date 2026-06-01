@@ -1,4 +1,4 @@
-package com.example.tp_integrador.entity;
+package com.example.tp_integrador.entities;
 
 import com.example.tp_integrador.enums.Rol;
 import jakarta.persistence.*;

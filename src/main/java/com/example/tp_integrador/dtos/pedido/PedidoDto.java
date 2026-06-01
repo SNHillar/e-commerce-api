@@ -1,8 +1,7 @@
 package com.example.tp_integrador.dtos.pedido;
 
 import com.example.tp_integrador.dtos.detallepedido.DetallePedidoDto;
-import com.example.tp_integrador.entity.DetallePedido;
-import com.example.tp_integrador.entity.Pedido;
+import com.example.tp_integrador.entities.Pedido;
 
 import java.time.LocalDateTime;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package com.example.tp_integrador.service;
+package com.example.tp_integrador.services;
 
 import com.example.tp_integrador.dtos.detallepedido.DetallePedidoCreate;
 import com.example.tp_integrador.dtos.pedido.PedidoDto;

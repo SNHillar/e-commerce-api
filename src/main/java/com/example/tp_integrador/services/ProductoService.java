@@ -1,10 +1,8 @@
-package com.example.tp_integrador.service;
+package com.example.tp_integrador.services;
 
 import com.example.tp_integrador.dtos.producto.ProductoCreate;
 import com.example.tp_integrador.dtos.producto.ProductoDto;
 import com.example.tp_integrador.dtos.producto.ProductoEdit;
-import com.example.tp_integrador.repository.ProductoRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

@@ -1,8 +1,7 @@
 package com.example.tp_integrador.dtos.producto;
 
 import com.example.tp_integrador.dtos.categoria.CategoriaDto;
-import com.example.tp_integrador.entity.Categoria;
-import com.example.tp_integrador.entity.Producto;
+import com.example.tp_integrador.entities.Producto;
 
 public record ProductoDto(
         Long id,
