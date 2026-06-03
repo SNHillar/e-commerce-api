@@ -6,8 +6,11 @@ import com.example.tp_integrador.dtos.producto.ProductoEdit;
 import com.example.tp_integrador.services.ProductoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/productos")
@@ -17,13 +20,13 @@ public class ProductoController {
     private final ProductoService productoService;
 
     @GetMapping("/all")
-    public void findAll() {
-        productoService.findAll();
+    public ResponseEntity<List<ProductoDto>> findAll() {
+        return ResponseEntity.ok(productoService.findAll());
     }
 
     @GetMapping("/{id}")
-    public void findById(@PathVariable Long id) {
-        productoService.findById(id);
+    public ResponseEntity<ProductoDto> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(productoService.findById(id));
     }
 
     @PutMapping("/{id}")
@@ -33,13 +36,13 @@ public class ProductoController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@Valid @PathVariable Long id) {
+    public ResponseEntity<Void> delete(@Valid @PathVariable Long id) {
         productoService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/create")
     public ResponseEntity<ProductoDto> create(@Valid @RequestBody ProductoCreate productoCreate) {
-        ProductoDto productoDto = productoService.save(productoCreate);
-        return ResponseEntity.ok(productoDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(productoService.save(productoCreate));
     }
 }

@@ -8,6 +8,7 @@ public record UsuarioDto(
         String apellido,
         String mail,
         String celular,
+        Boolean eliminado,
         String rol
 ) {
     public static UsuarioDto toDto(Usuario usuario){
@@ -18,6 +19,7 @@ public record UsuarioDto(
                 usuario.getApellido(),
                 usuario.getMail(),
                 usuario.getCelular(),
+                usuario.getEliminado(),
                 usuario.getRol().toString()
         );
     }

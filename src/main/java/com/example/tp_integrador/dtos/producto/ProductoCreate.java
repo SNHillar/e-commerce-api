@@ -8,13 +8,10 @@ import jakarta.validation.constraints.Size;
 public record ProductoCreate(
         @NotBlank
         String nombre,
-        @NotBlank
         Double precio,
         String descripcion,
-        @NotBlank @Size (min = 1)
         Integer stock,
         String imagen,
-        @NotBlank
         Long categoriaId
 ) {
     public Producto toEntity(){
