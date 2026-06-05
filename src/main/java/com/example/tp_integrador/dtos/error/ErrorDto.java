@@ -14,7 +14,7 @@ public record ErrorDto(
         return new ErrorDto(LocalDateTime.now(), status, error, detalles);
     }
 
-    public static ErrorDto simple(int status, String error) {
-        return new ErrorDto(LocalDateTime.now(), status, error, List.of());
+    public static ErrorDto simple(int status, String error, String detalles) {
+        return new ErrorDto(LocalDateTime.now(), status, error, List.of(detalles));
     }
 }
