@@ -16,22 +16,22 @@ public class GlobalHandlerException {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorDto> handleValidationErrors(MethodArgumentNotValidException ex){
-        List<String> detalles = ex.getBindingResult()
+        List<String> details = ex.getBindingResult()
                 .getFieldErrors().stream()
                 .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
                 .toList();
 
-        ErrorDto errorDto = ErrorDto.of(HttpStatus.BAD_REQUEST.value(), "Error de validación.", detalles);
+        ErrorDto errorDto = ErrorDto.of(HttpStatus.BAD_REQUEST.value(), "Error de validación.", details);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
     }
 
     @ExceptionHandler(ConstraintDeclarationException.class)
-    public ResponseEntity<ErrorDto> hadleConstraintViolation(ConstraintViolationException ex){
-        List<String> detalles = ex.getConstraintViolations().stream()
+    public ResponseEntity<ErrorDto> handleConstraintViolation(ConstraintViolationException ex){
+        List<String> details = ex.getConstraintViolations().stream()
                 .map(constraintViolation -> constraintViolation.getPropertyPath() + ": " + constraintViolation.getMessage())
                 .toList();
 
-        ErrorDto errorDto = ErrorDto.of(HttpStatus.BAD_REQUEST.value(), "Error en la FK.", detalles);
+        ErrorDto errorDto = ErrorDto.of(HttpStatus.BAD_REQUEST.value(), "Error en la FK.", details);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
     }
@@ -44,5 +44,9 @@ public class GlobalHandlerException {
     }
 
 
-    
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorDto> handleGenericException(Exception ex){
+        ErrorDto errorDto = ErrorDto.simple(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error interno del servidor.", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDto);
+    }
 }

@@ -27,7 +27,7 @@ public class CategoriaServiceImpl implements CategoriaService{
 
     @Override
     public CategoriaDto findById(Long id) {
-        Categoria categoria = categoriaRepository.findById(id).orElseThrow (() -> new NullPointerException("No se encontró la categoria con id: " + id));
+        Categoria categoria = categoriaRepository.findById(id).orElseThrow (() -> new IllegalArgumentException("No se encontró la categoria con id: " + id));
         return CategoriaDto.toDto(categoria);
     }
 
@@ -40,7 +40,7 @@ public class CategoriaServiceImpl implements CategoriaService{
 
     @Override
     public CategoriaDto update(CategoriaEdit categoriaEdit, Long idCategoria) {
-        Categoria categoria = categoriaRepository.findById(idCategoria).orElseThrow( () -> new NullPointerException("No se encontró la categoria con id: " + idCategoria));
+        Categoria categoria = categoriaRepository.findById(idCategoria).orElseThrow( () -> new IllegalArgumentException("No se encontró la categoria con id: " + idCategoria));
         categoriaEdit.applyTo(categoria);
         categoria = categoriaRepository.save(categoria);
         return CategoriaDto.toDto(categoria);
@@ -48,7 +48,7 @@ public class CategoriaServiceImpl implements CategoriaService{
 
     @Override
     public void deleteById(Long id) {
-        Categoria categoria = categoriaRepository.findById(id).orElseThrow(() -> new NullPointerException("No se encontró la categoria con id: " + id));
+        Categoria categoria = categoriaRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No se encontró la categoria con id: " + id));
         categoria.setEliminado(true);
         categoriaRepository.save(categoria);
     }
