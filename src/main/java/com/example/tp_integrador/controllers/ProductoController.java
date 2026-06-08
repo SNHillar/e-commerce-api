@@ -41,7 +41,7 @@ public class ProductoController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<ProductoDto> create(@Valid @RequestBody ProductoCreate productoCreate) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productoService.save(productoCreate));
     }

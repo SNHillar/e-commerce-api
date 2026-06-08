@@ -47,7 +47,7 @@ public class PedidoController {
             @RequestParam String formaPago,
             @RequestBody List<DetallePedidoCreate> items
     ){
-        PedidoDto pedidoDto = pedidoService.createPedido(usuarioId, items, formaPago);
+        PedidoDto pedidoDto = pedidoService.createPedido(usuarioId, formaPago, items);
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoDto);
     }
 }

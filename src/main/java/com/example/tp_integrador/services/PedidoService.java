@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PedidoService {
 
-    public PedidoDto createPedido (Long usuarioId, List<DetallePedidoCreate> items, String formaPago);
+    public PedidoDto createPedido (Long usuarioId, String formaPago, List<DetallePedidoCreate> items);
     public PedidoDto update(Long id, PedidoEdit pedidoEdit);
     public PedidoDto findById(Long id);
     public List<PedidoDto> findAll();

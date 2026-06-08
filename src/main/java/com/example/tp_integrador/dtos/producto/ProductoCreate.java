@@ -21,6 +21,9 @@ public record ProductoCreate(
                 .descripcion(this.descripcion)
                 .stock(this.stock)
                 .imagen(this.imagen)
-                .categoria(Categoria.builder().id(this.categoriaId).build()).build();
+                .categoria(Categoria.builder()
+                        .id(this.categoriaId)
+                        .build())
+                .build();
     }
 }
