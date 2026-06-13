@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/pedidos")
+@RequestMapping("api/pedidos")
 @RequiredArgsConstructor
 public class PedidoController {
 
@@ -24,7 +24,7 @@ public class PedidoController {
         return ResponseEntity.ok(pedidoService.findById(id));
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<PedidoDto>> findAll(){
         return ResponseEntity.ok(pedidoService.findAll());
     }

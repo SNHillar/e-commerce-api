@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/productos")
+@RequestMapping("api/productos")
 @RequiredArgsConstructor
 public class ProductoController {
 
     private final ProductoService productoService;
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<ProductoDto>> findAll() {
         return ResponseEntity.ok(productoService.findAll());
     }

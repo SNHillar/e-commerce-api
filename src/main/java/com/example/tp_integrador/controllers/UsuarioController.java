@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("api/usuarios")
 @RequiredArgsConstructor
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<UsuarioDto> create(@Valid @RequestBody UsuarioCreate usuarioCreate) {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.save(usuarioCreate));
     }
@@ -30,7 +30,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.findById(id));
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<UsuarioDto>> findAll() {
         return ResponseEntity.ok(usuarioService.findAll());
     }

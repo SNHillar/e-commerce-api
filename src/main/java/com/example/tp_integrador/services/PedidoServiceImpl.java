@@ -32,7 +32,7 @@ public class PedidoServiceImpl implements PedidoService{
 
 
     @Override
-    public PedidoDto createPedido(Long usuarioId, List<DetallePedidoCreate> items, String formaPago) {
+    public PedidoDto createPedido(Long usuarioId, String formaPago, List<DetallePedidoCreate> items) {
         // Creamos un nuevo pedido vacio y lo inicializamos con estado pendiente, fecha y la forma de pago que eligio el cliente
         Pedido pedido = new Pedido();
         pedido.setFecha(LocalDateTime.now());

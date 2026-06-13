@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/categorias")
+@RequestMapping("api/categorias")
 @RequiredArgsConstructor
 public class CategoriaController {
 
@@ -25,7 +26,7 @@ public class CategoriaController {
         return ResponseEntity.ok(categoriaService.findById(id));
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity <List<CategoriaDto>> findAll(){
         return ResponseEntity.ok(categoriaService.findAll());
     }
@@ -36,7 +37,7 @@ public class CategoriaController {
         return ResponseEntity.ok(categoriaDto);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<CategoriaDto> create(@Valid @RequestBody CategoriaCreate categoriaCreate){
         return ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.save(categoriaCreate));
     }
