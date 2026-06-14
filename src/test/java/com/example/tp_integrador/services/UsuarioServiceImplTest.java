@@ -17,8 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UsuarioServiceImplTest {
@@ -98,5 +97,20 @@ public class UsuarioServiceImplTest {
         assertTrue(USER_PREPARED.getEliminado());
         Mockito.verify(usuarioRepository, Mockito.times(1)).findById(1L);
         Mockito.verify(usuarioRepository, Mockito.times(1)).save(Mockito.any(Usuario.class));
+    }
+
+    @Test
+    void save(){
+        Mockito.when(usuarioRepository.save(Mockito.any(Usuario.class))).thenReturn(USER_PREPARED);
+        usuarioService.save(USER_CREATE);
+
+        Mockito.verify(usuarioRepository, Mockito.times(1)).save(Mockito.any(Usuario.class));
+    }
+
+    @Test
+    void findByIdWrong_must_throw_exception(){
+        Mockito.when(usuarioRepository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThrows(IllegalArgumentException.class, () -> usuarioService.findById(99L));
     }
 }

@@ -27,7 +27,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
     @Override
     public UsuarioDto findById(Long id) {
-        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new NullPointerException("No se encontro el usuario con id: " + id));
+        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No se encontro el usuario con id: " + id));
         return UsuarioDto.toDto(usuario);
     }
 
@@ -40,7 +40,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
     @Override
     public UsuarioDto update(UsuarioEdit usuarioEdit, Long id) {
-        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new NullPointerException("No se encontro el usuario con id: " + id));
+        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No se encontro el usuario con id: " + id));
         usuarioEdit.applyTo(usuario);
         usuarioRepository.save(usuario);
         return UsuarioDto.toDto(usuario);
@@ -48,7 +48,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 
     @Override
     public void delete(Long id) {
-        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new NullPointerException("No se encontro el usuario con id: " + id));
+        Usuario usuario = usuarioRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No se encontro el usuario con id: " + id));
         usuario.setEliminado(true);
         usuarioRepository.save(usuario);
     }
