@@ -10,10 +10,10 @@ public record PedidoEdit(
 ) {
     public void applyTo (Pedido pedido){
         if (estado != null) {
-            pedido.setEstado(Estado.valueOf(estado));
+            pedido.setEstado(Estado.valueOf(this.estado.trim().toUpperCase()));
         }
         if (formaPago != null) {
-            pedido.setFormaPago(FormaPago.valueOf(formaPago));
+            pedido.setFormaPago(FormaPago.valueOf(this.formaPago.trim().toUpperCase()));
         }
     }
 }

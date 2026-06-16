@@ -11,6 +11,7 @@ import com.example.tp_integrador.enums.FormaPago;
 import com.example.tp_integrador.repositories.PedidoRepository;
 import com.example.tp_integrador.repositories.ProductoRepository;
 import com.example.tp_integrador.repositories.UsuarioRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,18 +19,12 @@ import java.util.HashSet;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PedidoServiceImpl implements PedidoService{
 
     private final PedidoRepository pedidoRepository;
     private final ProductoRepository productoRepository;
     private final UsuarioRepository usuarioRepository;
-
-    public PedidoServiceImpl(PedidoRepository pedidoRepository, ProductoRepository productoRepository, UsuarioRepository usuarioRepository){
-        this.pedidoRepository = pedidoRepository;
-        this.productoRepository = productoRepository;
-        this.usuarioRepository = usuarioRepository;
-    }
-
 
     @Override
     public PedidoDto createPedido(Long usuarioId, String formaPago, List<DetallePedidoCreate> items) {
@@ -71,7 +66,7 @@ public class PedidoServiceImpl implements PedidoService{
 
     @Override
     public PedidoDto findById(Long id) {
-        Pedido pedido = pedidoRepository.findById(id).orElseThrow(() -> new NullPointerException("No se encontro el pedido con id: " + id));
+        Pedido pedido = pedidoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("No se encontro el pedido con id: " + id));
         return PedidoDto.toDto(pedido);
     }
 

@@ -1,5 +1,6 @@
 package com.example.tp_integrador.services;
 
+import com.example.tp_integrador.dtos.categoria.CategoriaCreate;
 import com.example.tp_integrador.dtos.categoria.CategoriaDto;
 import com.example.tp_integrador.dtos.categoria.CategoriaEdit;
 import com.example.tp_integrador.entities.Categoria;
@@ -58,6 +59,11 @@ public class CategoriaServiceImplTest {
             "Criollas"
     );
 
+    private final CategoriaCreate CATEGORIA_CREATE = new CategoriaCreate(
+            "Sandwiches",
+            "Panes Artesanales"
+    );
+
     @Test
     public void findAll() {
         Mockito.when(categoriaRepository.findAll()).thenReturn(Arrays.asList(CATEGORIA_PREPARED,  CATEGORIA_PREPARED_2));
@@ -79,7 +85,11 @@ public class CategoriaServiceImplTest {
 
     @Test
     public void save() {
+        Mockito.when(categoriaRepository.save(Mockito.any(Categoria.class))).thenReturn(CATEGORIA_PREPARED);
+        categoriaServiceImpl.save(CATEGORIA_CREATE);
 
+
+        Mockito.verify(categoriaRepository, Mockito.times(1)).save(Mockito.any(Categoria.class));
     }
 
     @Test
