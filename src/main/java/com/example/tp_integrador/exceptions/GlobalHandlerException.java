@@ -21,7 +21,7 @@ public class GlobalHandlerException {
                 .map(fieldError -> fieldError.getField() + ": " + fieldError.getDefaultMessage())
                 .toList();
 
-        ErrorDto errorDto = ErrorDto.of(HttpStatus.BAD_REQUEST.value(), "Error de validación.", details);
+        ErrorDto errorDto = ErrorDto.of(HttpStatus.BAD_REQUEST.value(), "Validate error.", details);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
     }
 
@@ -31,14 +31,14 @@ public class GlobalHandlerException {
                 .map(constraintViolation -> constraintViolation.getPropertyPath() + ": " + constraintViolation.getMessage())
                 .toList();
 
-        ErrorDto errorDto = ErrorDto.of(HttpStatus.BAD_REQUEST.value(), "Error en la FK.", details);
+        ErrorDto errorDto = ErrorDto.of(HttpStatus.BAD_REQUEST.value(), "Constraint error.", details);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorDto> handleIllegalArgument(IllegalArgumentException ex){
-        ErrorDto errorDto = ErrorDto.simple(HttpStatus.BAD_REQUEST.value(), "Argumento inválido.", ex.getMessage());
+        ErrorDto errorDto = ErrorDto.simple(HttpStatus.BAD_REQUEST.value(), "Invalid Argument: ", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorDto);
 
     }
@@ -46,7 +46,7 @@ public class GlobalHandlerException {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDto> handleGenericException(Exception ex){
-        ErrorDto errorDto = ErrorDto.simple(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error interno del servidor.", ex.getMessage());
+        ErrorDto errorDto = ErrorDto.simple(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal server error.", ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorDto);
     }
 }

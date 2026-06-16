@@ -21,7 +21,7 @@ public class Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @BooleanFlag @Builder.Default
-    Boolean eliminado = false;
+    Boolean deleted = false;
 
     @Builder.Default
     LocalDateTime createdAt = LocalDateTime.now();
