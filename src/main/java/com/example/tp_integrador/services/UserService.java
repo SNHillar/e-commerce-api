@@ -13,4 +13,5 @@ public interface UserService {
     public List<UserDto> findAll();
     public UserDto update(UserEdit userEdit, Long id);
     public void delete (Long id);
+    public UserDto findByEmail(String email);
 }
