@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 import java.util.Set;
 
 @Entity
+@Table(name = "users")
 @NoArgsConstructor @AllArgsConstructor
 @Getter @Setter
 @SuperBuilder
