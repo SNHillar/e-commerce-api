@@ -6,6 +6,7 @@ import com.example.tp_integrador.dtos.user.UserEdit;
 import com.example.tp_integrador.entities.User;
 import com.example.tp_integrador.enums.Rol;
 import com.example.tp_integrador.repositories.UserRepository;
+import com.example.tp_integrador.services.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

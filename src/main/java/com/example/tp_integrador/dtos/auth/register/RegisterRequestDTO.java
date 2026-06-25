@@ -1,9 +1,6 @@
 package com.example.tp_integrador.dtos.auth.register;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public record RegisterRequestDTO(
 
@@ -13,7 +10,8 @@ public record RegisterRequestDTO(
         String lastName,
         @Size(min = 10, max = 10, message = "El numero debe contener 10 digitos.")
         @Pattern(regexp = "\\d+", message = "Formato de celular invalido.")
-        String phoneNumber,
+        @NotNull
+        String phone,
 
         @NotBlank(message = "El email no puede estar vacio.")
         @Email(message = "Formato de email invalido.")

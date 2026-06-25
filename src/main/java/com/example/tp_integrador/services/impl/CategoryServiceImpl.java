@@ -1,10 +1,11 @@
-package com.example.tp_integrador.services;
+package com.example.tp_integrador.services.impl;
 
 import com.example.tp_integrador.dtos.category.CategoryCreate;
 import com.example.tp_integrador.dtos.category.CategoryDto;
 import com.example.tp_integrador.dtos.category.CategoryEdit;
 import com.example.tp_integrador.entities.Category;
 import com.example.tp_integrador.repositories.CategoryRepository;
+import com.example.tp_integrador.services.CategoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

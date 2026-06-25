@@ -23,8 +23,6 @@ public class Product extends Base{
     private Integer stock;
     private String image;
 
-    @Builder.Default
-    private Boolean available = true;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;

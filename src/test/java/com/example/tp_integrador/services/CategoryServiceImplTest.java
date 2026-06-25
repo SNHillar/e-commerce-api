@@ -6,6 +6,7 @@ import com.example.tp_integrador.dtos.category.CategoryEdit;
 import com.example.tp_integrador.entities.Category;
 import com.example.tp_integrador.entities.Product;
 import com.example.tp_integrador.repositories.CategoryRepository;
+import com.example.tp_integrador.services.impl.CategoryServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

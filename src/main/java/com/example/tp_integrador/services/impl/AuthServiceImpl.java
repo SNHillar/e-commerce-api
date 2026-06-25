@@ -1,4 +1,4 @@
-package com.example.tp_integrador.services;
+package com.example.tp_integrador.services.impl;
 
 import com.example.tp_integrador.dtos.auth.login.LoginRequestDTO;
 import com.example.tp_integrador.dtos.auth.register.RegisterRequestDTO;
@@ -6,6 +6,7 @@ import com.example.tp_integrador.dtos.user.UserDto;
 import com.example.tp_integrador.entities.User;
 import com.example.tp_integrador.enums.Rol;
 import com.example.tp_integrador.repositories.UserRepository;
+import com.example.tp_integrador.services.AuthService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -39,8 +40,8 @@ public class AuthServiceImpl implements AuthService {
         User user = User.builder()
                 .firstName(registerRequestDTO.firstName())
                 .lastName(registerRequestDTO.lastName())
+                .phone(registerRequestDTO.phone())
                 .email(registerRequestDTO.email())
-                .phone(registerRequestDTO.phoneNumber())
                 .password(registerRequestDTO.password())
                 .role(Rol.USER)
                 .build();

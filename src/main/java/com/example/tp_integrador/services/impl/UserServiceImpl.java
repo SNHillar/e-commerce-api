@@ -1,10 +1,11 @@
-package com.example.tp_integrador.services;
+package com.example.tp_integrador.services.impl;
 
 import com.example.tp_integrador.dtos.user.UserCreate;
 import com.example.tp_integrador.dtos.user.UserDto;
 import com.example.tp_integrador.dtos.user.UserEdit;
 import com.example.tp_integrador.entities.User;
 import com.example.tp_integrador.repositories.UserRepository;
+import com.example.tp_integrador.services.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

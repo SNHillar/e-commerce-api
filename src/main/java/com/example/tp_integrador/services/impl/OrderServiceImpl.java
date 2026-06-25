@@ -1,4 +1,4 @@
-package com.example.tp_integrador.services;
+package com.example.tp_integrador.services.impl;
 
 import com.example.tp_integrador.dtos.orderdetail.OrderDetailCreate;
 import com.example.tp_integrador.dtos.order.OrderDto;
@@ -11,6 +11,7 @@ import com.example.tp_integrador.enums.Payment;
 import com.example.tp_integrador.repositories.OrderRepository;
 import com.example.tp_integrador.repositories.ProductRepository;
 import com.example.tp_integrador.repositories.UserRepository;
+import com.example.tp_integrador.services.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
