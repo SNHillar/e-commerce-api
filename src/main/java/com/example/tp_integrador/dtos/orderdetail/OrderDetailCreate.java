@@ -4,7 +4,8 @@ import com.example.tp_integrador.entities.OrderDetail;
 import com.example.tp_integrador.entities.Order;
 import com.example.tp_integrador.entities.Product;
 
-public record OrderDetailCreate(
+public record
+OrderDetailCreate(
         Long productId,
         Long orderId,
         Integer quantity

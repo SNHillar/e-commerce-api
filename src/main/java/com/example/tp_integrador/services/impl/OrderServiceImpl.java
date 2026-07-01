@@ -14,10 +14,12 @@ import com.example.tp_integrador.repositories.UserRepository;
 import com.example.tp_integrador.services.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor

@@ -1,5 +1,6 @@
 package com.example.tp_integrador.controllers;
 
+import com.example.tp_integrador.dtos.order.OrderCreateDto;
 import com.example.tp_integrador.dtos.orderdetail.OrderDetailCreate;
 import com.example.tp_integrador.dtos.order.OrderDto;
 import com.example.tp_integrador.dtos.order.OrderEdit;
@@ -44,10 +45,13 @@ public class OrderController {
     @PostMapping("/user/{userId}")
     public ResponseEntity<OrderDto> create(
             @PathVariable Long userId,
-            @RequestParam String paymentMethod,
-            @RequestBody List<OrderDetailCreate> items
-    ){
-        OrderDto orderDto = orderService.createOrder(userId, paymentMethod, items);
+            @RequestBody OrderCreateDto orderCreateDto
+            ){
+        OrderDto orderDto = orderService.createOrder(
+                userId,
+                orderCreateDto.paymentMethod(),
+                orderCreateDto.items()
+        );
         return ResponseEntity.status(HttpStatus.CREATED).body(orderDto);
     }
 }

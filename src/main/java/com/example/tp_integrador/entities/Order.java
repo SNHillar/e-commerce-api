@@ -18,6 +18,7 @@ import java.util.Set;
 @SuperBuilder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @ToString
+@Table(name = "orders")
 public class Order extends Base implements Calculable{
 
     @DateTimeFormat
