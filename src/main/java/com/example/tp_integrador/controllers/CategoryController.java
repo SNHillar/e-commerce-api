@@ -1,7 +1,7 @@
 package com.example.tp_integrador.controllers;
 
-import com.example.tp_integrador.dtos.category.CategoryCreate;
-import com.example.tp_integrador.dtos.category.CategoryDto;
+import com.example.tp_integrador.dtos.category.CategoryRequestDto;
+import com.example.tp_integrador.dtos.category.CategoryResponseDto;
 import com.example.tp_integrador.dtos.category.CategoryEdit;
 import com.example.tp_integrador.services.CategoryService;
 import jakarta.validation.Valid;
@@ -21,24 +21,24 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping("/{id}")
-    public ResponseEntity <CategoryDto> findById(@PathVariable Long id){
+    public ResponseEntity <CategoryResponseDto> findById(@PathVariable Long id){
         return ResponseEntity.ok(categoryService.findById(id));
     }
 
     @GetMapping
-    public ResponseEntity <List<CategoryDto>> findAll(){
+    public ResponseEntity <List<CategoryResponseDto>> findAll(){
         return ResponseEntity.ok(categoryService.findAll());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryDto> update(@PathVariable Long id, @Valid @RequestBody CategoryEdit category){
-        CategoryDto categoryDto = categoryService.update(category, id);
-        return ResponseEntity.ok(categoryDto);
+    public ResponseEntity<CategoryResponseDto> update(@PathVariable Long id, @Valid @RequestBody CategoryEdit category){
+        CategoryResponseDto categoryResponseDto = categoryService.update(category, id);
+        return ResponseEntity.ok(categoryResponseDto);
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDto> create(@Valid @RequestBody CategoryCreate categoryCreate){
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.save(categoryCreate));
+    public ResponseEntity<CategoryResponseDto> create(@Valid @RequestBody CategoryRequestDto categoryRequestDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.save(categoryRequestDto));
     }
 
     @DeleteMapping("/{id}")

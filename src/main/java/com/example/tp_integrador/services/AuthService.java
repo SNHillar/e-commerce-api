@@ -3,9 +3,9 @@ package com.example.tp_integrador.services;
 
 import com.example.tp_integrador.dtos.auth.login.LoginRequestDTO;
 import com.example.tp_integrador.dtos.auth.register.RegisterRequestDTO;
-import com.example.tp_integrador.dtos.user.UserDto;
+import com.example.tp_integrador.dtos.user.UserResponseDto;
 
 public interface AuthService {
-    public UserDto login(LoginRequestDTO  loginRequestDTO);
-    public UserDto register(RegisterRequestDTO registerRequestDTO);
+    public UserResponseDto login(LoginRequestDTO  loginRequestDTO);
+    public UserResponseDto register(RegisterRequestDTO registerRequestDTO);
 }

@@ -1,7 +1,7 @@
 package com.example.tp_integrador.services.impl;
 
-import com.example.tp_integrador.dtos.product.ProductCreate;
-import com.example.tp_integrador.dtos.product.ProductDto;
+import com.example.tp_integrador.dtos.product.ProductRequestDto;
+import com.example.tp_integrador.dtos.product.ProductResponseDto;
 import com.example.tp_integrador.dtos.product.ProductEdit;
 import com.example.tp_integrador.entities.Product;
 import com.example.tp_integrador.repositories.ProductRepository;
@@ -20,31 +20,31 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto save(ProductCreate productCreate) {
-        Product product = productCreate.toEntity();
+    public ProductResponseDto save(ProductRequestDto productRequestDto) {
+        Product product = productRequestDto.toEntity();
         product = productRepository.save(product);
-        return ProductDto.toDto(product);
+        return ProductResponseDto.toDto(product);
     }
 
     @Override
-    public ProductDto findById(Long id) {
+    public ProductResponseDto findById(Long id) {
         Product product = productRepository.findById(id).orElseThrow( () -> new NullPointerException("Product not found with id:" + id));
-        return ProductDto.toDto(product);
+        return ProductResponseDto.toDto(product);
     }
 
     @Override
-    public List<ProductDto> findAll() {
+    public List<ProductResponseDto> findAll() {
         List<Product> products = productRepository.findAll();
         return products.stream()
-                .map(ProductDto::toDto).toList();
+                .map(ProductResponseDto::toDto).toList();
     }
 
     @Override
-    public ProductDto update(ProductEdit productEdit, Long id) {
+    public ProductResponseDto update(ProductEdit productEdit, Long id) {
         Product product = productRepository.findById(id).orElseThrow( () -> new NullPointerException("Product not found with id: " + id));
         productEdit.applyTo(product, product.getCategory());
         productRepository.save(product);
-        return ProductDto.toDto(product);
+        return ProductResponseDto.toDto(product);
     }
 
     @Override

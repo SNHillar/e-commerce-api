@@ -1,7 +1,7 @@
 package com.example.tp_integrador.services;
 
-import com.example.tp_integrador.dtos.product.ProductCreate;
-import com.example.tp_integrador.dtos.product.ProductDto;
+import com.example.tp_integrador.dtos.product.ProductRequestDto;
+import com.example.tp_integrador.dtos.product.ProductResponseDto;
 import com.example.tp_integrador.dtos.product.ProductEdit;
 import com.example.tp_integrador.entities.Category;
 import com.example.tp_integrador.entities.Product;
@@ -70,7 +70,7 @@ public class ProductServiceImplTest {
             1L
     );
 
-    private final ProductCreate PRODUCT_CREATE = new ProductCreate(
+    private final ProductRequestDto PRODUCT_CREATE = new ProductRequestDto(
             "Empanada",
             1000.0,
             "Carne salada",
@@ -82,7 +82,7 @@ public class ProductServiceImplTest {
     @Test
     public void findAll() {
         Mockito.when(productRepository.findAll()).thenReturn(Arrays.asList(PRODUCT_PREPARED, PRODUCT_PREPARED_2));
-        List<ProductDto> productos = productoServiceImpl.findAll();
+        List<ProductResponseDto> productos = productoServiceImpl.findAll();
 
         assertEquals(2, productos.size());
         Mockito.verify(productRepository, Mockito.times(1)).findAll();
@@ -91,9 +91,9 @@ public class ProductServiceImplTest {
     @Test
     public void findById() {
         Mockito.when(productRepository.findById(1L)).thenReturn(Optional.of(PRODUCT_PREPARED));
-        ProductDto productDto = productoServiceImpl.findById(1L);
+        ProductResponseDto productResponseDto = productoServiceImpl.findById(1L);
 
-        assertEquals(1L, productDto.id());
+        assertEquals(1L, productResponseDto.id());
         Mockito.verify(productRepository, Mockito.times(1)).findById(1L);
     }
 
@@ -102,12 +102,12 @@ public class ProductServiceImplTest {
         Mockito.when(productRepository.findById(1L)).thenReturn(Optional.of(PRODUCT_PREPARED));
         Mockito.when(productRepository.save(Mockito.any(Product.class))).thenAnswer(i -> i.getArgument(0));
 
-        ProductDto productDto = productoServiceImpl.update(PRODUCT_EDIT, 1L);
-        assertEquals(1L, productDto.id());
-        assertEquals("Pizza", productDto.name());
-        assertEquals(2000.0, productDto.price());
-        assertEquals("Pepperoni", productDto.description());
-        assertEquals(10, productDto.stock());
+        ProductResponseDto productResponseDto = productoServiceImpl.update(PRODUCT_EDIT, 1L);
+        assertEquals(1L, productResponseDto.id());
+        assertEquals("Pizza", productResponseDto.name());
+        assertEquals(2000.0, productResponseDto.price());
+        assertEquals("Pepperoni", productResponseDto.description());
+        assertEquals(10, productResponseDto.stock());
 
         Mockito.verify(productRepository, Mockito.times(1)).findById(1L);
         Mockito.verify(productRepository, Mockito.times(1)).save(Mockito.any(Product.class));

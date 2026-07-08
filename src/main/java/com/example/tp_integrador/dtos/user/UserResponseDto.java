@@ -2,7 +2,7 @@ package com.example.tp_integrador.dtos.user;
 
 import com.example.tp_integrador.entities.User;
 
-public record UserDto(
+public record UserResponseDto(
         Long id,
         String firstName,
         String lastName,
@@ -11,9 +11,9 @@ public record UserDto(
         Boolean deleted,
         String role
 ) {
-    public static UserDto toDto(User user){
+    public static UserResponseDto toDto(User user){
         if (user == null) return null;
-        return new UserDto(
+        return new UserResponseDto(
                 user.getId(),
                 user.getFirstName(),
                 user.getLastName(),

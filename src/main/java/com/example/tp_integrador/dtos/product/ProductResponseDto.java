@@ -1,12 +1,12 @@
 package com.example.tp_integrador.dtos.product;
 
-import com.example.tp_integrador.dtos.category.CategoryDto;
+import com.example.tp_integrador.dtos.category.CategoryResponseDto;
 import com.example.tp_integrador.entities.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 
-public record ProductDto(
+public record ProductResponseDto(
         Long id,
         String name,
         Double price,
@@ -16,10 +16,10 @@ public record ProductDto(
         Boolean deleted,
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         LocalDateTime created_at,
-        CategoryDto categoryDto
+        CategoryResponseDto categoryResponseDto
 ) {
-    public static ProductDto toDto(Product product) {
-        return new ProductDto(
+    public static ProductResponseDto toDto(Product product) {
+        return new ProductResponseDto(
                 product.getId(),
                 product.getName(),
                 product.getPrice(),
@@ -28,7 +28,7 @@ public record ProductDto(
                 product.getImage(),
                 product.getDeleted(),
                 product.getCreatedAt(),
-                product.getCategory() != null ? CategoryDto.toDto(product.getCategory()) : null
+                product.getCategory() != null ? CategoryResponseDto.toDto(product.getCategory()) : null
         );
     }
 }

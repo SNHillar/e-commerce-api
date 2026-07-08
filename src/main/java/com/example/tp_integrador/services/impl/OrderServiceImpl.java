@@ -1,7 +1,7 @@
 package com.example.tp_integrador.services.impl;
 
-import com.example.tp_integrador.dtos.orderdetail.OrderDetailCreate;
-import com.example.tp_integrador.dtos.order.OrderDto;
+import com.example.tp_integrador.dtos.orderdetail.OrderDetailRequestDto;
+import com.example.tp_integrador.dtos.order.OrderResponseDto;
 import com.example.tp_integrador.dtos.order.OrderEdit;
 import com.example.tp_integrador.entities.Order;
 import com.example.tp_integrador.entities.Product;
@@ -14,7 +14,6 @@ import com.example.tp_integrador.repositories.UserRepository;
 import com.example.tp_integrador.services.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -30,7 +29,7 @@ public class OrderServiceImpl implements OrderService {
     private final UserRepository userRepository;
 
     @Override
-    public OrderDto createOrder(Long userId, String paymentMethod, List<OrderDetailCreate> items) {
+    public OrderResponseDto createOrder(Long userId, String paymentMethod, List<OrderDetailRequestDto> items) {
         // Create a new empty order and initialize it with pending status, date and the payment method chosen by the client
         Order order = new Order();
         order.setDate(LocalDateTime.now());
@@ -42,7 +41,7 @@ public class OrderServiceImpl implements OrderService {
         order.setUser(user);
         order.setDetails(new HashSet<>());
         // Iterate over the list of requested details and validate/subtract stock
-        for (OrderDetailCreate item : items){
+        for (OrderDetailRequestDto item : items){
             Product product = productRepository.findById(item.productId()).orElseThrow(() -> new NullPointerException("Product not found with id: " + item.productId()));
             if (product.getStock() < item.quantity()) {
                 throw new IllegalArgumentException("Insufficient stock for product: " + product.getName());
@@ -56,27 +55,27 @@ public class OrderServiceImpl implements OrderService {
         // Calculate the total with the entity method and save the order in the repository
         order.calcularTotal();
         Order savedOrder = orderRepository.save(order);
-        return OrderDto.toDto(savedOrder);
+        return OrderResponseDto.toDto(savedOrder);
     }
 
     @Override
-    public OrderDto update(Long id, OrderEdit orderEdit) {
+    public OrderResponseDto update(Long id, OrderEdit orderEdit) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new NullPointerException("Order not found with id: " + id));
         orderEdit.applyTo(order);
         orderRepository.save(order);
-        return OrderDto.toDto(order);
+        return OrderResponseDto.toDto(order);
     }
 
     @Override
-    public OrderDto findById(Long id) {
+    public OrderResponseDto findById(Long id) {
         Order order = orderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Order not found with id: " + id));
-        return OrderDto.toDto(order);
+        return OrderResponseDto.toDto(order);
     }
 
     @Override
-    public List<OrderDto> findAll() {
+    public List<OrderResponseDto> findAll() {
         List<Order> orders = orderRepository.findAll();
-        return orders.stream().map(OrderDto::toDto).toList();
+        return orders.stream().map(OrderResponseDto::toDto).toList();
     }
 
     @Override

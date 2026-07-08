@@ -1,7 +1,7 @@
 package com.example.tp_integrador.services;
 
-import com.example.tp_integrador.dtos.category.CategoryCreate;
-import com.example.tp_integrador.dtos.category.CategoryDto;
+import com.example.tp_integrador.dtos.category.CategoryRequestDto;
+import com.example.tp_integrador.dtos.category.CategoryResponseDto;
 import com.example.tp_integrador.dtos.category.CategoryEdit;
 import com.example.tp_integrador.entities.Category;
 import com.example.tp_integrador.entities.Product;
@@ -60,7 +60,7 @@ public class CategoryServiceImplTest {
             "Criollas"
     );
 
-    private final CategoryCreate CATEGORY_CREATE = new CategoryCreate(
+    private final CategoryRequestDto CATEGORY_CREATE = new CategoryRequestDto(
             "Sandwiches",
             "Panes Artesanales"
     );
@@ -68,7 +68,7 @@ public class CategoryServiceImplTest {
     @Test
     public void findAll() {
         Mockito.when(categoryRepository.findAll()).thenReturn(Arrays.asList(CATEGORY_PREPARED, CATEGORY_PREPARED_2));
-        List<CategoryDto> categories = categoryServiceImpl.findAll();
+        List<CategoryResponseDto> categories = categoryServiceImpl.findAll();
 
         assertEquals(2, categories.size());
         Mockito.verify(categoryRepository, Mockito.times(1)).findAll();
@@ -77,7 +77,7 @@ public class CategoryServiceImplTest {
     @Test
     public void findById() {
         Mockito.when(categoryRepository.findById(Mockito.anyLong())).thenReturn(Optional.ofNullable(CATEGORY_PREPARED));
-        CategoryDto categoria = categoryServiceImpl.findById(1L);
+        CategoryResponseDto categoria = categoryServiceImpl.findById(1L);
 
         assertEquals(1L, categoria.id());
         Mockito.verify(categoryRepository, Mockito.times(1)).findById(1L);
@@ -98,11 +98,11 @@ public class CategoryServiceImplTest {
         Mockito.when(categoryRepository.findById(Mockito.anyLong())).thenReturn(Optional.ofNullable(CATEGORY_PREPARED));
         Mockito.when(categoryRepository.save(Mockito.any(Category.class))).thenReturn(CATEGORY_PREPARED);
 
-        CategoryDto categoryDto = categoryServiceImpl.update(CATEGORY_EDIT, 1L);
+        CategoryResponseDto categoryResponseDto = categoryServiceImpl.update(CATEGORY_EDIT, 1L);
 
-        assertEquals(1L, categoryDto.id());
-        assertEquals("Empanadas", categoryDto.name());
-        assertEquals("Criollas", categoryDto.description());
+        assertEquals(1L, categoryResponseDto.id());
+        assertEquals("Empanadas", categoryResponseDto.name());
+        assertEquals("Criollas", categoryResponseDto.description());
 
         Mockito.verify(categoryRepository, Mockito.times(1)).findById(1L);
         Mockito.verify(categoryRepository, Mockito.times(1)).save(Mockito.any(Category.class));

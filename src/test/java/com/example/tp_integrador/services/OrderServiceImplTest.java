@@ -1,7 +1,7 @@
 package com.example.tp_integrador.services;
 
-import com.example.tp_integrador.dtos.orderdetail.OrderDetailCreate;
-import com.example.tp_integrador.dtos.order.OrderDto;
+import com.example.tp_integrador.dtos.orderdetail.OrderDetailRequestDto;
+import com.example.tp_integrador.dtos.order.OrderResponseDto;
 import com.example.tp_integrador.dtos.order.OrderEdit;
 import com.example.tp_integrador.entities.Order;
 import com.example.tp_integrador.entities.Product;
@@ -66,9 +66,9 @@ public class OrderServiceImplTest {
     @Test
     void findById() {
         Mockito.when(orderRepository.findById(1L)).thenReturn(Optional.of(ORDER_PREPARED));
-        OrderDto orderDto = pedidoServiceImpl.findById(1L);
+        OrderResponseDto orderResponseDto = pedidoServiceImpl.findById(1L);
 
-        assertEquals(1L, orderDto.id());
+        assertEquals(1L, orderResponseDto.id());
         Mockito.verify(orderRepository, Mockito.times(1)).findById(1L);
     }
 
@@ -81,9 +81,9 @@ public class OrderServiceImplTest {
     @Test
     void findAll() {
         Mockito.when(orderRepository.findAll()).thenReturn(Arrays.asList(ORDER_PREPARED));
-        List<OrderDto> orderDto = pedidoServiceImpl.findAll();
+        List<OrderResponseDto> orderResponseDto = pedidoServiceImpl.findAll();
 
-        assertEquals(1, orderDto.size());
+        assertEquals(1, orderResponseDto.size());
         Mockito.verify(orderRepository, Mockito.times(1)).findAll();
     }
 
@@ -92,8 +92,8 @@ public class OrderServiceImplTest {
         Long userId = 1L;
         Long productId = 2L;
 
-        OrderDetailCreate orderDetailCreate = new OrderDetailCreate(productId, 1L, 2);
-        List<OrderDetailCreate> orderDetailCreateList = Arrays.asList(orderDetailCreate);
+        OrderDetailRequestDto orderDetailRequestDto = new OrderDetailRequestDto(productId, 1L, 2);
+        List<OrderDetailRequestDto> orderDetailRequestDtoList = Arrays.asList(orderDetailRequestDto);
 
         User user = User.builder()
                 .id(userId)
@@ -113,10 +113,10 @@ public class OrderServiceImplTest {
         Mockito.when(productRepository.save(product)).thenReturn(product);
         Mockito.when(orderRepository.save(Mockito.any(Order.class))).thenAnswer(i -> i.getArgument(0));
 
-        OrderDto orderDto = pedidoServiceImpl.createOrder(userId, "CARD", orderDetailCreateList);
+        OrderResponseDto orderResponseDto = pedidoServiceImpl.createOrder(userId, "CARD", orderDetailRequestDtoList);
 
-        assertNotNull(orderDto);
-        assertEquals(userId, orderDto.userId());
+        assertNotNull(orderResponseDto);
+        assertEquals(userId, orderResponseDto.userId());
         assertEquals(8, product.getStock());
 
         Mockito.verify(userRepository, Mockito.times(1)).findById(userId);
@@ -128,10 +128,10 @@ public class OrderServiceImplTest {
     @Test
     void update() {
         Mockito.when(orderRepository.findById(1L)).thenReturn(Optional.of(ORDER_PREPARED));
-        OrderDto orderDto = pedidoServiceImpl.update(1L, ORDER_EDIT);
+        OrderResponseDto orderResponseDto = pedidoServiceImpl.update(1L, ORDER_EDIT);
 
-        assertEquals(1L, orderDto.id());
-        assertEquals("CANCELED", orderDto.status());
+        assertEquals(1L, orderResponseDto.id());
+        assertEquals("CANCELED", orderResponseDto.status());
 
         Mockito.verify(orderRepository, Mockito.times(1)).findById(1L);
     }

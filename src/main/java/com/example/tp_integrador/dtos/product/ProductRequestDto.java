@@ -4,7 +4,7 @@ import com.example.tp_integrador.entities.Category;
 import com.example.tp_integrador.entities.Product;
 import jakarta.validation.constraints.NotBlank;
 
-public record ProductCreate(
+public record ProductRequestDto(
         @NotBlank
         String name,
         Double price,

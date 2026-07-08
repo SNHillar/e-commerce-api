@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 
-public record UserCreate(
+public record UserRequestDto(
         @NotBlank
         String firstName,
         @NotBlank

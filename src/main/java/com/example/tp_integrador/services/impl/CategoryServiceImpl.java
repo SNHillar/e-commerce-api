@@ -1,7 +1,7 @@
 package com.example.tp_integrador.services.impl;
 
-import com.example.tp_integrador.dtos.category.CategoryCreate;
-import com.example.tp_integrador.dtos.category.CategoryDto;
+import com.example.tp_integrador.dtos.category.CategoryRequestDto;
+import com.example.tp_integrador.dtos.category.CategoryResponseDto;
 import com.example.tp_integrador.dtos.category.CategoryEdit;
 import com.example.tp_integrador.entities.Category;
 import com.example.tp_integrador.repositories.CategoryRepository;
@@ -20,31 +20,31 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto save(CategoryCreate categoryCreate) {
-        Category category = categoryCreate.toEntity();
+    public CategoryResponseDto save(CategoryRequestDto categoryRequestDto) {
+        Category category = categoryRequestDto.toEntity();
         category = categoryRepository.save(category);
-        return CategoryDto.toDto(category);
+        return CategoryResponseDto.toDto(category);
     }
 
     @Override
-    public CategoryDto findById(Long id) {
+    public CategoryResponseDto findById(Long id) {
         Category category = categoryRepository.findById(id).orElseThrow (() -> new IllegalArgumentException("Category not found with id: " + id));
-        return CategoryDto.toDto(category);
+        return CategoryResponseDto.toDto(category);
     }
 
     @Override
-    public List<CategoryDto> findAll() {
+    public List<CategoryResponseDto> findAll() {
         List <Category> categories = categoryRepository.findAll();
         return categories.stream()
-                .map(CategoryDto::toDto).toList();
+                .map(CategoryResponseDto::toDto).toList();
     }
 
     @Override
-    public CategoryDto update(CategoryEdit categoryEdit, Long categoryId) {
+    public CategoryResponseDto update(CategoryEdit categoryEdit, Long categoryId) {
         Category category = categoryRepository.findById(categoryId).orElseThrow( () -> new IllegalArgumentException("Category not found with id: " + categoryId));
         categoryEdit.applyTo(category);
         category = categoryRepository.save(category);
-        return CategoryDto.toDto(category);
+        return CategoryResponseDto.toDto(category);
     }
 
     @Override

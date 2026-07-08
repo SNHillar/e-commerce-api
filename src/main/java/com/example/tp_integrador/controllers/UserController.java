@@ -1,10 +1,11 @@
 package com.example.tp_integrador.controllers;
 
 
-import com.example.tp_integrador.dtos.user.UserCreate;
-import com.example.tp_integrador.dtos.user.UserDto;
+import com.example.tp_integrador.dtos.user.UserRequestDto;
+import com.example.tp_integrador.dtos.user.UserResponseDto;
 import com.example.tp_integrador.dtos.user.UserEdit;
 import com.example.tp_integrador.services.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,27 +17,28 @@ import java.util.List;
 @RestController
 @RequestMapping("api/users")
 @RequiredArgsConstructor
+@Tag(name = "User", description = "User API operations.")
 public class UserController {
 
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserDto> create(@Valid @RequestBody UserCreate userCreate) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userCreate));
+    public ResponseEntity<UserResponseDto> create(@Valid @RequestBody UserRequestDto userRequestDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userRequestDto));
     }
 
     @GetMapping({"/{id}"})
-    public ResponseEntity<UserDto> findById(@PathVariable Long id){
+    public ResponseEntity<UserResponseDto> findById(@PathVariable Long id){
         return ResponseEntity.ok(userService.findById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDto>> findAll() {
+    public ResponseEntity<List<UserResponseDto>> findAll() {
         return ResponseEntity.ok(userService.findAll());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDto> update(@Valid @RequestBody UserEdit userEdit, @PathVariable Long id){
+    public ResponseEntity<UserResponseDto> update(@Valid @RequestBody UserEdit userEdit, @PathVariable Long id){
         return ResponseEntity.ok(userService.update(userEdit, id));
     }
 

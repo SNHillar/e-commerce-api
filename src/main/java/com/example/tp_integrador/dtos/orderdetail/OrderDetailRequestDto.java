@@ -5,7 +5,7 @@ import com.example.tp_integrador.entities.Order;
 import com.example.tp_integrador.entities.Product;
 
 public record
-OrderDetailCreate(
+OrderDetailRequestDto(
         Long productId,
         Long orderId,
         Integer quantity
