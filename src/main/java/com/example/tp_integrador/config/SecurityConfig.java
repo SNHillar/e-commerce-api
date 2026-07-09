@@ -2,6 +2,7 @@ package com.example.tp_integrador.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -29,9 +30,7 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .anyRequest().authenticated())
+
                 .build();
     }
 
@@ -44,19 +43,12 @@ public class SecurityConfig {
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
-        authProvider.setUserDetailsPasswordService();
         return authProvider;
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails userDetails = User
-                .withUsername("Superadminstrador")
-                .password("123456")
-                .roles("ADMIN")
-                .authorities("READ", "WRITE")
-                .build();
-        return new InMemoryUserDetailsManager(userDetails);
+
     }
 
     @Bean
