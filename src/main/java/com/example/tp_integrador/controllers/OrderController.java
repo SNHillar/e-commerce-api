@@ -1,8 +1,7 @@
 package com.example.tp_integrador.controllers;
 
-import com.example.tp_integrador.dtos.order.OrderCreateDto;
-import com.example.tp_integrador.dtos.orderdetail.OrderDetailCreate;
-import com.example.tp_integrador.dtos.order.OrderDto;
+import com.example.tp_integrador.dtos.order.OrderRequestDto;
+import com.example.tp_integrador.dtos.order.OrderResponseDto;
 import com.example.tp_integrador.dtos.order.OrderEdit;
 import com.example.tp_integrador.services.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +19,12 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping("{id}")
-    public ResponseEntity<OrderDto> findById(@PathVariable Long id){
+    public ResponseEntity<OrderResponseDto> findById(@PathVariable Long id){
         return ResponseEntity.ok(orderService.findById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<OrderDto>> findAll(){
+    public ResponseEntity<List<OrderResponseDto>> findAll(){
         return ResponseEntity.ok(orderService.findAll());
     }
 
@@ -36,22 +35,22 @@ public class OrderController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderDto> update(@PathVariable Long id, @RequestBody OrderEdit orderEdit){
-        OrderDto orderDto = orderService.update(id, orderEdit);
-        return ResponseEntity.ok(orderDto);
+    public ResponseEntity<OrderResponseDto> update(@PathVariable Long id, @RequestBody OrderEdit orderEdit){
+        OrderResponseDto orderResponseDto = orderService.update(id, orderEdit);
+        return ResponseEntity.ok(orderResponseDto);
     }
 
     @PostMapping("/user/{userId}")
-    public ResponseEntity<OrderDto> create(
+    public ResponseEntity<OrderResponseDto> create(
             @PathVariable Long userId,
-            @RequestBody OrderCreateDto orderCreateDto
+            @RequestBody OrderRequestDto orderRequestDto
             ){
-        OrderDto orderDto = orderService.createOrder(
+        OrderResponseDto orderResponseDto = orderService.createOrder(
                 userId,
-                orderCreateDto.paymentMethod(),
-                orderCreateDto.items()
+                orderRequestDto.paymentMethod(),
+                orderRequestDto.items()
         );
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(orderResponseDto);
     }
 }
 

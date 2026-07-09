@@ -2,7 +2,7 @@ package com.example.tp_integrador.controllers;
 
 import com.example.tp_integrador.dtos.auth.login.LoginRequestDTO;
 import com.example.tp_integrador.dtos.auth.register.RegisterRequestDTO;
-import com.example.tp_integrador.dtos.user.UserDto;
+import com.example.tp_integrador.dtos.user.UserResponseDto;
 import com.example.tp_integrador.services.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +19,14 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity <UserDto> register(@Valid @RequestBody RegisterRequestDTO registerRequestDTO) {
-        UserDto userDto = authService.register(registerRequestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userDto);
+    public ResponseEntity <UserResponseDto> register(@Valid @RequestBody RegisterRequestDTO registerRequestDTO) {
+        UserResponseDto userResponseDto = authService.register(registerRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDto);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<UserDto> login(@RequestBody LoginRequestDTO loginRequestDTO) {
-        UserDto userDto = authService.login(loginRequestDTO);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userDto);
+    public ResponseEntity<UserResponseDto> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+        UserResponseDto userResponseDto = authService.login(loginRequestDTO);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userResponseDto);
     }
 }

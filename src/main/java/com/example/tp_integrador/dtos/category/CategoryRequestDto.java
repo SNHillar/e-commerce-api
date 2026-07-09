@@ -4,7 +4,7 @@ import com.example.tp_integrador.entities.Category;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public record CategoryCreate(
+public record CategoryRequestDto(
         @NotBlank
         @Size(min = 3, max = 20, message = "Enter a valid name.")
         String name,

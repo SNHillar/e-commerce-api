@@ -1,7 +1,7 @@
 package com.example.tp_integrador.services;
 
-import com.example.tp_integrador.dtos.user.UserCreate;
-import com.example.tp_integrador.dtos.user.UserDto;
+import com.example.tp_integrador.dtos.user.UserRequestDto;
+import com.example.tp_integrador.dtos.user.UserResponseDto;
 import com.example.tp_integrador.dtos.user.UserEdit;
 import com.example.tp_integrador.entities.User;
 import com.example.tp_integrador.enums.Rol;
@@ -29,7 +29,7 @@ public class UserServiceImplTest {
     @InjectMocks
     private UserServiceImpl userService;
 
-    private final UserCreate USER_CREATE = new UserCreate("Jorge", "Secco", "test@test.com", "123456789", "asDweq212", "user");
+    private final UserRequestDto USER_CREATE = new UserRequestDto("Jorge", "Secco", "test@test.com", "123456789", "asDweq212", "user");
 
     private final User USER_PREPARED =  User.builder()
             .id(1L)
@@ -56,7 +56,7 @@ public class UserServiceImplTest {
         // Cuando busquemos en el repositorio el id 1, entonces esperamos que retorne al usuario.
         Mockito.when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(USER_PREPARED));
         Mockito.when(userRepository.save(Mockito.any(User.class))).thenAnswer(invocationOnMock ->  invocationOnMock.getArgument(0));
-        UserDto resultDto = userService.update(USER_EDIT, 1L);
+        UserResponseDto resultDto = userService.update(USER_EDIT, 1L);
 
         assertEquals(1L, resultDto.id());
         assertEquals("Pepe", resultDto.firstName());
@@ -72,7 +72,7 @@ public class UserServiceImplTest {
     @Test
     void findById(){
         Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(USER_PREPARED));
-        UserDto resultDto = userService.findById(1L);
+        UserResponseDto resultDto = userService.findById(1L);
         assertEquals(1L, resultDto.id());
 
 
@@ -82,7 +82,7 @@ public class UserServiceImplTest {
     @Test
     void findAll(){
         Mockito.when(userRepository.findAll()).thenReturn(Arrays.asList(USER_PREPARED, USER_PREPARED_2));
-        List<UserDto> resultDto = userService.findAll();
+        List<UserResponseDto> resultDto = userService.findAll();
 
         assertEquals(2, resultDto.size());
         Mockito.verify(userRepository, Mockito.times(1)).findAll();

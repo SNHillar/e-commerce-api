@@ -1,16 +1,16 @@
 package com.example.tp_integrador.services;
 
-import com.example.tp_integrador.dtos.orderdetail.OrderDetailCreate;
-import com.example.tp_integrador.dtos.order.OrderDto;
+import com.example.tp_integrador.dtos.orderdetail.OrderDetailRequestDto;
+import com.example.tp_integrador.dtos.order.OrderResponseDto;
 import com.example.tp_integrador.dtos.order.OrderEdit;
 
 import java.util.List;
 
 public interface OrderService {
 
-    public OrderDto createOrder(Long userId, String paymentMethod, List<OrderDetailCreate> items);
-    public OrderDto update(Long id, OrderEdit orderEdit);
-    public OrderDto findById(Long id);
-    public List<OrderDto> findAll();
+    public OrderResponseDto createOrder(Long userId, String paymentMethod, List<OrderDetailRequestDto> items);
+    public OrderResponseDto update(Long id, OrderEdit orderEdit);
+    public OrderResponseDto findById(Long id);
+    public List<OrderResponseDto> findAll();
     public void delete(Long id);
 }

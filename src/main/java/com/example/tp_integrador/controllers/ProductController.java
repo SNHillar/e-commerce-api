@@ -1,7 +1,7 @@
 package com.example.tp_integrador.controllers;
 
-import com.example.tp_integrador.dtos.product.ProductCreate;
-import com.example.tp_integrador.dtos.product.ProductDto;
+import com.example.tp_integrador.dtos.product.ProductRequestDto;
+import com.example.tp_integrador.dtos.product.ProductResponseDto;
 import com.example.tp_integrador.dtos.product.ProductEdit;
 import com.example.tp_integrador.services.ProductService;
 import jakarta.validation.Valid;
@@ -20,19 +20,19 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping
-    public ResponseEntity<List<ProductDto>> findAll() {
+    public ResponseEntity<List<ProductResponseDto>> findAll() {
         return ResponseEntity.ok(productService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> findById(@PathVariable Long id) {
+    public ResponseEntity<ProductResponseDto> findById(@PathVariable Long id) {
         return ResponseEntity.ok(productService.findById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDto> update(@Valid @PathVariable Long id, @Valid @RequestBody ProductEdit productEdit) {
-        ProductDto productDto = productService.update(productEdit, id);
-        return ResponseEntity.ok(productDto);
+    public ResponseEntity<ProductResponseDto> update(@Valid @PathVariable Long id, @Valid @RequestBody ProductEdit productEdit) {
+        ProductResponseDto productResponseDto = productService.update(productEdit, id);
+        return ResponseEntity.ok(productResponseDto);
     }
 
     @DeleteMapping("/{id}")
@@ -42,7 +42,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductDto> create(@Valid @RequestBody ProductCreate productCreate) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productCreate));
+    public ResponseEntity<ProductResponseDto> create(@Valid @RequestBody ProductRequestDto productRequestDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productRequestDto));
     }
 }

@@ -30,7 +30,15 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+<<<<<<< HEAD
 
+=======
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/auth/login",
+                                "/auth/register").permitAll()
+                        .anyRequest().authenticated())
+>>>>>>> 3d0f34d15b659221f5ac593b5a38808eeb2e6b0a
                 .build();
     }
 
@@ -40,6 +48,7 @@ public class SecurityConfig {
     }
 
     @Bean
+<<<<<<< HEAD
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
@@ -49,6 +58,23 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
 
+=======
+    public UserDetailsService userDetailsService() {
+        UserDetails admin = User
+                .withUsername("admin")
+                .password("123456")
+                .roles("ADMIN")
+                .authorities("READ", "WRITE")
+                .build();
+
+        UserDetails user = User.withUsername("user")
+                .password("123456")
+                .roles("USER")
+                .authorities("READ")
+                .build();
+
+        return new InMemoryUserDetailsManager(admin, user);
+>>>>>>> 3d0f34d15b659221f5ac593b5a38808eeb2e6b0a
     }
 
     @Bean

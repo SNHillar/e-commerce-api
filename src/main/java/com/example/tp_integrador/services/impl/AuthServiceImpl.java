@@ -2,7 +2,7 @@ package com.example.tp_integrador.services.impl;
 
 import com.example.tp_integrador.dtos.auth.login.LoginRequestDTO;
 import com.example.tp_integrador.dtos.auth.register.RegisterRequestDTO;
-import com.example.tp_integrador.dtos.user.UserDto;
+import com.example.tp_integrador.dtos.user.UserResponseDto;
 import com.example.tp_integrador.entities.User;
 import com.example.tp_integrador.enums.Rol;
 import com.example.tp_integrador.repositories.UserRepository;
@@ -21,7 +21,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public UserDto login(LoginRequestDTO loginRequestDTO) {
+    public UserResponseDto login(LoginRequestDTO loginRequestDTO) {
         Optional<User> user= userRepository.findByEmail(loginRequestDTO.email());
         if(user.isEmpty() || user.get().getDeleted()){
             throw new IllegalArgumentException("User not found with email: " + loginRequestDTO.email());
@@ -29,11 +29,11 @@ public class AuthServiceImpl implements AuthService {
         if(!user.get().getPassword().equals(loginRequestDTO.password())){
             throw new IllegalArgumentException("Invalid password.");
         }
-        return UserDto.toDto(user.get());
+        return UserResponseDto.toDto(user.get());
     }
 
     @Override
-    public UserDto register(RegisterRequestDTO registerRequestDTO) {
+    public UserResponseDto register(RegisterRequestDTO registerRequestDTO) {
         if (userRepository.findByEmail(registerRequestDTO.email()).isPresent()) {
             throw new IllegalArgumentException("Email is already in use." + registerRequestDTO.email());
         }
@@ -47,6 +47,6 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         userRepository.save(user);
-        return UserDto.toDto(user);
+        return UserResponseDto.toDto(user);
     }
 }

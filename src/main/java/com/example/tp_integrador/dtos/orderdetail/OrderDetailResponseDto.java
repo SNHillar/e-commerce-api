@@ -1,21 +1,21 @@
 package com.example.tp_integrador.dtos.orderdetail;
 
-import com.example.tp_integrador.dtos.product.ProductDto;
+import com.example.tp_integrador.dtos.product.ProductResponseDto;
 import com.example.tp_integrador.entities.OrderDetail;
 
-public record OrderDetailDto(
+public record OrderDetailResponseDto(
         Long id,
         Integer quantity,
         Double subtotal,
-        ProductDto productDto
+        ProductResponseDto productResponseDto
 ) {
-    public static OrderDetailDto toDto(OrderDetail detail){
+    public static OrderDetailResponseDto toDto(OrderDetail detail){
         if (detail == null) return null ;
-        return new OrderDetailDto(
+        return new OrderDetailResponseDto(
                 detail.getId(),
                 detail.getQuantity(),
                 detail.getSubtotal(),
-                ProductDto.toDto(detail.getProduct())
+                ProductResponseDto.toDto(detail.getProduct())
         );
     }
 }
