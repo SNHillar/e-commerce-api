@@ -5,6 +5,7 @@ import com.example.tp_integrador.dtos.user.UserRequestDto;
 import com.example.tp_integrador.dtos.user.UserResponseDto;
 import com.example.tp_integrador.dtos.user.UserEdit;
 import com.example.tp_integrador.services.UserService;
+import com.example.tp_integrador.utils.JwtService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

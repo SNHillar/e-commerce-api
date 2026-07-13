@@ -1,6 +1,7 @@
 package com.example.tp_integrador.controllers;
 
 import com.example.tp_integrador.dtos.auth.login.LoginRequestDTO;
+import com.example.tp_integrador.dtos.auth.login.LoginResponseDto;
 import com.example.tp_integrador.dtos.auth.register.RegisterRequestDTO;
 import com.example.tp_integrador.dtos.user.UserResponseDto;
 import com.example.tp_integrador.services.AuthService;
@@ -20,13 +21,13 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity <UserResponseDto> register(@Valid @RequestBody RegisterRequestDTO registerRequestDTO) {
-        UserResponseDto userResponseDto = authService.register(registerRequestDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDto);
+        UserResponseDto responseDto = authService.register(registerRequestDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
     }
 
     @PostMapping("/login")
     public ResponseEntity<UserResponseDto> login(@RequestBody LoginRequestDTO loginRequestDTO) {
-        UserResponseDto userResponseDto = authService.login(loginRequestDTO);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(userResponseDto);
+        UserResponseDto responseDto = authService.login(loginRequestDTO);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseDto);
     }
 }

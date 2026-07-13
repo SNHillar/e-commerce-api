@@ -3,3 +3,5 @@ security:
     secret: ${JWT_SECRET_KEY}
     expiration:
       86400000
+    refresh:
+      expiration: 604800000
