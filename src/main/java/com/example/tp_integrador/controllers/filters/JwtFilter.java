@@ -1,5 +1,6 @@
 package com.example.tp_integrador.controllers.filters;
 
+import com.example.tp_integrador.repositories.UserRepository;
 import com.example.tp_integrador.utils.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -27,13 +28,13 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-    private final UserDetailsService userDetailsService;
+    private final UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         String authorization = request.getHeader("Authorization");
 
-        if (authorization == null && !authorization.startsWith("Bearer ")) {
+        if (authorization == null || !authorization.startsWith("Bearer ")) {
             log.error("Authorization not found");
             filterChain.doFilter(request, response);
             return;
@@ -52,11 +53,11 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         String username =  jwtService.getUsernameFromToken(token);
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        UserDetails userDetails = userRepository.findByEmail(username).orElse(null);
 
         boolean isValidToken = jwtService.isValidToken(token, userDetails);
 
-        if (!isValidToken || SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (!isValidToken && SecurityContextHolder.getContext().getAuthentication() == null) {
             log.error("Username not found");
             filterChain.doFilter(request, response);
             return;

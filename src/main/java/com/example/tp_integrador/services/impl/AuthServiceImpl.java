@@ -27,15 +27,12 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public LoginResponseDto login(LoginRequestDTO loginRequestDTO) {
-        Optional<User> user = userRepository.findByEmail(loginRequestDTO.email());
-        if(user.isEmpty() || user.get().getDeleted()){
-            throw new IllegalArgumentException("User not found with email: " + loginRequestDTO.email());
+        User user = userRepository.findByEmail(loginRequestDTO.email()).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        if (user.getDeleted() != null && user.getDeleted()) {
+            throw new IllegalArgumentException("User has been deleted");
         }
-        if(!user.get().getPassword().equals(loginRequestDTO.password())){
-            throw new IllegalArgumentException("Invalid password.");
-        }
-        checkPassword(loginRequestDTO, user.get());
-        String accessToken = jwtService.generateToken(user.get());
+        checkPassword(loginRequestDTO, user);
+        String accessToken = jwtService.generateToken(user);
         return new LoginResponseDto(accessToken);
     }
 
