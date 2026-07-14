@@ -42,54 +42,12 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/auth/login",
-                                "/auth/register").permitAll()
+                                "/api/auth/login",
+                                "/api/auth/register").permitAll()
                         .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .authenticationProvider(authenticationProvider)
                 .build();
     }
-
-    @Bean
-    public AuthenticationManager  authenticationManager( AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }
-
-<<<<<<< HEAD
-=======
-    @Bean
-<<<<<<< HEAD
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(userDetailsService());
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-
-=======
-    public UserDetailsService userDetailsService() {
-        UserDetails admin = User
-                .withUsername("admin")
-                .password("123456")
-                .roles("ADMIN")
-                .authorities("READ", "WRITE")
-                .build();
-
-        UserDetails user = User.withUsername("user")
-                .password("123456")
-                .roles("USER")
-                .authorities("READ")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin, user);
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
->>>>>>> ddeec26c94d2eb34b233279fa6c2e63aba3a3e91
 }

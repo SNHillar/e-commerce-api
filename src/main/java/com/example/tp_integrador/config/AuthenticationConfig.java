@@ -28,7 +28,6 @@ public class AuthenticationConfig {
         return new BCryptPasswordEncoder();
     }
 
-
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService());

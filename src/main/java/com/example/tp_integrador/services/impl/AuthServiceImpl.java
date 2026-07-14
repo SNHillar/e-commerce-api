@@ -8,23 +8,25 @@ import com.example.tp_integrador.entities.User;
 import com.example.tp_integrador.enums.Rol;
 import com.example.tp_integrador.repositories.UserRepository;
 import com.example.tp_integrador.services.AuthService;
+import com.example.tp_integrador.utils.JwtService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    public AuthServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final JwtService jwtService;
 
 
     @Override
-    public UserResponseDto login(LoginRequestDTO loginRequestDTO) {
+    public LoginResponseDto login(LoginRequestDTO loginRequestDTO) {
         Optional<User> user = userRepository.findByEmail(loginRequestDTO.email());
         if(user.isEmpty() || user.get().getDeleted()){
             throw new IllegalArgumentException("User not found with email: " + loginRequestDTO.email());
@@ -32,7 +34,9 @@ public class AuthServiceImpl implements AuthService {
         if(!user.get().getPassword().equals(loginRequestDTO.password())){
             throw new IllegalArgumentException("Invalid password.");
         }
-        return UserResponseDto.toDto(user.get());
+        checkPassword(loginRequestDTO, user.get());
+        String accessToken = jwtService.generateToken(user.get());
+        return new LoginResponseDto(accessToken);
     }
 
     @Override
@@ -54,5 +58,11 @@ public class AuthServiceImpl implements AuthService {
 
         userRepository.save(user);
         return UserResponseDto.toDto(user);
+    }
+
+    private void checkPassword(LoginRequestDTO loginRequestDTO, User user) {
+        if(!passwordEncoder.matches(loginRequestDTO.password(), user.getPassword())){
+            throw new IllegalArgumentException("Invalid password.");
+        }
     }
 }
